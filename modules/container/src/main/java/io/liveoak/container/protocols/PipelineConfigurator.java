@@ -7,9 +7,11 @@ package io.liveoak.container.protocols;
 
 import java.util.concurrent.Executor;
 
+import io.liveoak.container.DefaultDirectConnector;
 import io.liveoak.container.ErrorHandler;
 import io.liveoak.container.ResourceHandler;
-import io.liveoak.container.auth.AuthorizationHandler;
+import io.liveoak.container.auth.AuthHandler;
+import io.liveoak.container.auth.AuthzHandler;
 import io.liveoak.container.codec.ResourceCodecManager;
 import io.liveoak.container.deploy.ConfigurationWatcher;
 import io.liveoak.container.deploy.DirectoryDeploymentManager;
@@ -21,6 +23,7 @@ import io.liveoak.container.protocols.websocket.WebSocketStompFrameEncoder;
 import io.liveoak.container.subscriptions.ContainerStompServerContext;
 import io.liveoak.container.subscriptions.SubscriptionWatcher;
 import io.liveoak.spi.Container;
+import io.liveoak.spi.container.DirectConnector;
 import io.liveoak.spi.container.SubscriptionManager;
 import io.liveoak.stomp.common.StompFrameDecoder;
 import io.liveoak.stomp.common.StompFrameEncoder;
@@ -141,11 +144,22 @@ public class PipelineConfigurator {
     }
 
     public void switchToPlainHttp(ChannelPipeline pipeline) {
+        // TODO Inject
+        DefaultDirectConnector directConnector = new DefaultDirectConnector(this);
+
         pipeline.remove(WebSocketHandshakerHandler.class);
         //pipeline.addLast( new DebugHandler( "server-1" ) );
         pipeline.addLast("http-resourceRead-decoder", new HttpResourceRequestDecoder(this.codecManager));
         pipeline.addLast("http-resourceRead-encoder", new HttpResourceResponseEncoder(this.codecManager));
-        pipeline.addLast("auth-handler", new AuthorizationHandler());
+
+        if (container.hasResource("auth")) {
+            pipeline.addLast("auth-handler", new AuthHandler(directConnector));
+        }
+
+        if (container.hasResource("authz")) {
+            pipeline.addLast("authz-handler", new AuthzHandler(directConnector));
+        }
+
         //pipeline.addLast( new DebugHandler( "server-2" ) );
         if (this.deploymentManager != null) {
             pipeline.addLast("configuration-watcher", new ConfigurationWatcher(this.deploymentManager));
