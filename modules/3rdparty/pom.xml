@@ -42,6 +42,19 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.jboss.netty</groupId>
+            <artifactId>netty-xnio-transport</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- undertow -->
+        <dependency>
+          <groupId>io.undertow</groupId>
+          <artifactId>undertow-core</artifactId>
+          <scope>compile</scope>
+        </dependency>
+
         <!-- io.vertx -->
         <dependency>
             <groupId>io.vertx</groupId>
@@ -102,6 +115,8 @@
             <artifactId>org.eclipse.jgit</artifactId>
             <scope>compile</scope>
         </dependency>
+
+ 
     </dependencies>
     <build>
         <pluginManagement>

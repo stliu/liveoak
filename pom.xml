@@ -19,9 +19,11 @@
   <packaging>pom</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <vertx.version>2.0.1-final</vertx.version>
+    <vertx.version>2.0.2-final</vertx.version>
     <vertx.testtools.version>2.0.1-final</vertx.testtools.version>
-    <netty.version>4.0.2.Final</netty.version>
+    <netty.version>4.0.13.Final-SNAPSHOT</netty.version>
+    <netty.xnio.version>0.1.0-SNAPSHOT</netty.xnio.version>
+    <xnio.version>3.2.0.Beta3</xnio.version>
     <jboss.modules.version>1.3.0.Beta2</jboss.modules.version>
     <jboss.logging.version>3.1.1.GA</jboss.logging.version>
     <jackson.version>2.2.2</jackson.version>
@@ -34,7 +36,7 @@
     <drools.version>5.6.0.CR1</drools.version>
     <janino.version>2.5.16</janino.version>
     <jgit.version>3.1.0.201310021548-r</jgit.version>
-    <undertow.version>1.0.0.Beta24</undertow.version>
+    <undertow.version>1.0.0.Beta26</undertow.version>
 
     <!-- checkstyle -->
     <version.checkstyle.plugin>2.9.1</version.checkstyle.plugin>
@@ -76,9 +78,24 @@
         <version>${netty.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.jboss.netty</groupId>
+        <artifactId>netty-xnio-transport</artifactId>
+        <version>${netty.xnio.version}</version>
+      </dependency>
+      <dependency>
         <groupId>io.undertow</groupId>
         <artifactId>undertow-core</artifactId>
         <version>${undertow.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.xnio</groupId>
+        <artifactId>xnio-api</artifactId>
+        <version>${xnio.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.xnio</groupId>
+        <artifactId>xnio-nio</artifactId>
+        <version>${xnio.version}</version>
       </dependency>
       <dependency>
         <groupId>io.vertx</groupId>

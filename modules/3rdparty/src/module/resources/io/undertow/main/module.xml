@@ -5,15 +5,15 @@
   ~
   ~ Licensed under the Eclipse Public License version 1.0, available at http://www.eclipse.org/legal/epl-v10.html
   -->
-<module xmlns="urn:jboss:module:1.0" name="io.netty">
+<module xmlns="urn:jboss:module:1.0" name="io.undertow">
 
     <resources>
-        <artifact name="io.netty:netty-all:${netty.version}"/>
-        <artifact name="org.jboss.netty:netty-xnio-transport:${netty.xnio.version}"/>
+        <artifact name="io.undertow:undertow-core:${undertow.version}"/>
     </resources>
 
     <dependencies>
-      <module name="org.jboss.xnio"/>
+      <module name="org.jboss.xnio" services="import"/>
+      <module name="org.jboss.logging"/>
     </dependencies>
 
 </module>

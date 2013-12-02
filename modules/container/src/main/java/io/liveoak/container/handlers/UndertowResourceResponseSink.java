@@ -19,7 +19,8 @@ public class UndertowResourceResponseSink implements ResourceResponseSink{
     public void accept(ResourceResponse response) {
         exchange.putAttachment( ResourceResponse.ATTACHMENT_KEY, response );
         try {
-            this.next.handleRequest( this.exchange );
+            //this.next.handleRequest( this.exchange );
+            this.exchange.dispatch( this.next );
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

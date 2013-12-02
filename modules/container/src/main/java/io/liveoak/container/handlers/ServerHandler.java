@@ -11,14 +11,16 @@ public class ServerHandler implements HttpHandler {
 
     public ServerHandler(DefaultContainer container) {
         this.container = container;
-        this.decodingHandler = new ResourceRequestDecodingHandler(
-                new AuthorizationHandler(
-                        new ResourceRequestHandler(
-                                new SubscriptionWatcherHandler(
-                                        new ResourceResponseHandler(this.container.getCodecManager()),
-                                        this.container.getSubscriptionManager()),
-                                this.container)),
-                container.getCodecManager());
+        this.decodingHandler =
+                new WebSocketDetectingHandler(
+                        new ResourceRequestDecodingHandler(
+                                new AuthorizationHandler(
+                                        new ResourceRequestHandler(
+                                                new SubscriptionWatcherHandler(
+                                                        new ResourceResponseHandler(this.container.getCodecManager()),
+                                                        this.container.getSubscriptionManager()),
+                                                this.container)),
+                                container.getCodecManager()));
     }
 
     @Override
